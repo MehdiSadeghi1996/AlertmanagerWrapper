@@ -20,6 +20,7 @@ func SendAlert(c *gin.Context) {
 	translated := services.TranslateAlertToPersian(&alrt)
 
 	var d configurations.Dictionary
+
 	conf := d.GetConf()
 
 	var phoneNumbers = conf.PhoneNumbers
