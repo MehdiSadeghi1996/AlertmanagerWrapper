@@ -18,7 +18,7 @@ const (
 	newline          = "\n"
 )
 
-func TranslateAlertToPersian(alert *alerts.Alert) *string {
+func TranslateAlertToPersian(alert *alerts.Alert) string {
 
 	var messagetemp = &messages.MessageTemplate{
 		AlertName:        alert.GroupLabels["value"],
@@ -41,6 +41,6 @@ func TranslateAlertToPersian(alert *alerts.Alert) *string {
 		problemEndAt + colon + messagetemp.ProblemEndAt.Format("2006-01-02 15:04") +
 		Description + colon + conf.Maps[messagetemp.Description]
 
-	return &body
+	return body
 
 }
