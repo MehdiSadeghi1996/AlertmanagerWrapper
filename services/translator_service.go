@@ -37,8 +37,8 @@ func TranslateAlertToPersian(alert *alerts.Alert) string {
 	var body = alertname + colon + conf.Maps[messagetemp.AlertName] + newline +
 		service + colon + conf.Maps[messagetemp.Service] + newline +
 		status + colon + conf.Maps[messagetemp.Status] + newline +
-		problemStartedAt + colon + messagetemp.ProblemStartedAt.Format("2006-01-02 15:04") +
-		problemEndAt + colon + messagetemp.ProblemEndAt.Format("2006-01-02 15:04") +
+		problemStartedAt + colon + messagetemp.ProblemStartedAt.Format("2006-01-02 15:04") + newline +
+		problemEndAt + colon + messagetemp.ProblemEndAt.Format("2006-01-02 15:04") + newline +
 		Description + colon + conf.Maps[messagetemp.Description]
 
 	return body
