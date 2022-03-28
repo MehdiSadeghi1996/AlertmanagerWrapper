@@ -1,6 +1,8 @@
 package main
 
-import "Prometheus_alerts_wrapper/app"
+import (
+	"Prometheus_alerts_wrapper/app"
+)
 
 func main() {
 

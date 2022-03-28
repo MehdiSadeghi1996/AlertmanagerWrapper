@@ -21,7 +21,8 @@ const (
 func TranslateAlertToPersian(alert *alerts.Alert) string {
 
 	var messagetemp = &messages.MessageTemplate{
-		AlertName:        alert.GroupLabels["value"],
+
+		AlertName:        alert.GroupLabels["alertname"],
 		Service:          alert.Receiver,
 		Status:           alert.Alerts[0].Status,
 		ProblemStartedAt: alert.Alerts[0].StartsAt,
@@ -34,13 +35,25 @@ func TranslateAlertToPersian(alert *alerts.Alert) string {
 
 	log.Println(conf.Maps["mehdi"]) // test
 
-	var body = alertname + colon + conf.Maps[messagetemp.AlertName] + newline +
-		service + colon + conf.Maps[messagetemp.Service] + newline +
-		status + colon + conf.Maps[messagetemp.Status] + newline +
+	var body = alertname + colon + GetEnglishOrDefault(conf.Maps, messagetemp.AlertName) + newline +
+		service + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Service) + newline +
+		status + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Status) + newline +
 		problemStartedAt + colon + messagetemp.ProblemStartedAt.Format("2006-01-02 15:04") + newline +
 		problemEndAt + colon + messagetemp.ProblemEndAt.Format("2006-01-02 15:04") + newline +
-		Description + colon + conf.Maps[messagetemp.Description]
+		Description + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Description)
 
 	return body
+
+}
+
+func GetEnglishOrDefault(dicMap map[string]string, word string) string {
+
+	var alertnamePersianOrEnglish string
+	if val, ok := dicMap[word]; ok {
+		alertnamePersianOrEnglish = val
+	} else {
+		alertnamePersianOrEnglish = word
+	}
+	return alertnamePersianOrEnglish
 
 }
