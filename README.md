@@ -4,7 +4,13 @@ Prometheus Alertmanager Wrapper
 translate alerts from prometheus alertmanager to any language
 and send to recivers phone number
 
+
+
+## Installation
+
 //////// alertmanager config to send alerts to /SendAlert of wrapper
+
+```bash
 route:
   group_by: ['alertname']
   group_wait: 30s
@@ -21,3 +27,5 @@ inhibit_rules:
     target_match:
       severity: 'warning'
     equal: ['alertname', 'dev', 'instance']
+```
+    
