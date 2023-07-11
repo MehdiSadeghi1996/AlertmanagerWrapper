@@ -4,7 +4,6 @@ import (
 	"Prometheus_alerts_wrapper/configurations"
 	"Prometheus_alerts_wrapper/domain/alerts"
 	"Prometheus_alerts_wrapper/domain/messages"
-	"log"
 )
 
 const (
@@ -33,27 +32,25 @@ func TranslateAlertToPersian(alert *alerts.Alert) string {
 	var d configurations.Dictionary
 	conf := d.GetConf()
 
-	log.Println(conf.Maps["mehdi"]) // test
-
-	var body = alertname + colon + GetEnglishOrDefault(conf.Maps, messagetemp.AlertName) + newline +
-		service + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Service) + newline +
-		status + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Status) + newline +
+	var body = alertname + colon + GetTranslatedLanguageOrDefault(conf.Maps, messagetemp.AlertName) + newline +
+		service + colon + GetTranslatedLanguageOrDefault(conf.Maps, messagetemp.Service) + newline +
+		status + colon + GetTranslatedLanguageOrDefault(conf.Maps, messagetemp.Status) + newline +
 		problemStartedAt + colon + messagetemp.ProblemStartedAt.Format("2006-01-02 15:04") + newline +
 		problemEndAt + colon + messagetemp.ProblemEndAt.Format("2006-01-02 15:04") + newline +
-		Description + colon + GetEnglishOrDefault(conf.Maps, messagetemp.Description)
+		Description + colon + GetTranslatedLanguageOrDefault(conf.Maps, messagetemp.Description)
 
 	return body
 
 }
 
-func GetEnglishOrDefault(dicMap map[string]string, word string) string {
+func GetTranslatedLanguageOrDefault(dicMap map[string]string, word string) string {
 
-	var alertnamePersianOrEnglish string
+	var AlertnameTranslatedOrEnglish string
 	if val, ok := dicMap[word]; ok {
-		alertnamePersianOrEnglish = val
+		AlertnameTranslatedOrEnglish = val
 	} else {
-		alertnamePersianOrEnglish = word
+		AlertnameTranslatedOrEnglish = word
 	}
-	return alertnamePersianOrEnglish
+	return AlertnameTranslatedOrEnglish
 
 }
