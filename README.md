@@ -28,4 +28,5 @@ inhibit_rules:
       severity: 'warning'
     equal: ['alertname', 'dev', 'instance']
 ```
-    
+    build: docker build . -t prometheus-alertmanager-wrapper:x.x.x
+    run: docker run -p yourDesiredPort:80 prometheus-alertmanager-wrapper:x.x.x
